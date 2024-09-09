@@ -5,5 +5,11 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/supabase'
   ],
-  devtools: { enabled: true }
+  supabase: {
+    redirect: false
+    },
+  devtools: { enabled: true },
+  devServer: {
+    port: 8081
+  }
 })
