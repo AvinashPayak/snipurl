@@ -3,32 +3,57 @@
 @tailwind utilities;
 
 body {
-    @apply bg-black text-white/70 relative
+  @apply bg-black text-white/70 relative;
 }
 
 body::before {
-    width: 100%;
-    height: 100%;
-    content: '';
-    position: fixed;
-    z-index: -1;
-    background: radial-gradient(75.61% 75.61% at 50% 24.39%, rgba(200, 50, 150, 0.2) 0%, rgba(200, 50, 150, 0) 100%);
+  width: 100%;
+  height: 100%;
+  content: "";
+  position: fixed;
+  z-index: -1;
+  background: radial-gradient(
+    75.61% 75.61% at 50% 24.39%,
+    rgba(200, 50, 150, 0.2) 0%,
+    rgba(200, 50, 150, 0) 100%
+  );
 }
 
 .container {
-    @apply max-w-5xl mx-auto px-5
+  @apply max-w-5xl mx-auto px-5;
 }
 
 .bg-blur {
-    @apply bg-black/30 backdrop-blur-md
+  @apply bg-black/30 backdrop-blur-md;
 }
 
 .btn {
-    @apply py-2 px-4 rounded-full;
-    
+  @apply py-2 px-4 rounded-full;
 }
 
 .btn-primary {
-    @apply bg-white/80;
-    background: linear-gradient(92.35deg, rgb(100, 50, 120) 0%, rgb(120, 60, 180) 100%);
+  @apply bg-white/80;
+  background: linear-gradient(
+    92.35deg,
+    rgb(100, 50, 120) 0%,
+    rgb(120, 60, 180) 100%
+  );
+}
+
+.card {
+  @apply min-w-[350px] bg-white/5 rounded-xl border p-5 border-white/10 backdrop-blur-md;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    @apply w-full py-2 px-2 bg-transparent border-2 border-white/20 rounded-lg
+}
+
+form label {
+    @apply text-white/70 text-sm my-1 block;
+}
+
+.form-group {
+    
 }
