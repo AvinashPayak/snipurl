@@ -54,13 +54,18 @@
             />
           </div>
           <button type="submit" class="btn btn-primary w-full py-3 mt-5">
-            Login
+            <template v-if="isLoggingIn">Login</template>
+            <template v-else>Signup</template>
           </button>
 
           <div class="text-center mt-5">
-            <button>
+            <button v-if="isLoggingIn">
               Don't have an account?
-              <span class="text-purple-500">Signup</span>.
+              <span class="text-purple-500" @click="toggleLogin">Signup</span>.
+            </button>
+            <button v-else>
+              Already have an account?
+              <span class="text-purple-500" @click="toggleLogin">Login</span>.
             </button>
           </div>
 
@@ -77,7 +82,7 @@ const form = reactive({
   password: "",
 });
 const errors = ref<string>("");
-
+const isLoggingIn = ref<boolean>(false);
 const supabaseAuth = useSupabaseClient();
 
 const handleGithubLogin = () => {
@@ -86,9 +91,38 @@ const handleGithubLogin = () => {
   });
 };
 
+const resetError = () => {
+  errors.value = ""
+}
+
+const handleSignup = async () => {
+  try {
+    const { data, error } = await supabaseAuth.auth.signUp({
+      email: form.email,
+      password: form.password,
+    });
+
+    if (error) {
+      errors.value = error.message;
+      return;
+    }
+    resetError()
+
+    useRouter().push("/dashboard")
+
+  } catch (error) {
+    errors.value = "Something went wrong";
+  }
+};
+
 const handleLogin = async () => {
   if (!form.email || !form.password) {
     errors.value = "Please fill all the fields";
+    return;
+  }
+
+  if (!isLoggingIn.value) {
+    handleSignup();
     return;
   }
 
@@ -100,10 +134,21 @@ const handleLogin = async () => {
 
     if (error) {
       errors.value = error.message;
-      return
+      return;
     }
+
+    resetError()
+
+    useRouter().push("/dashboard")
+
   } catch (error) {
-    errors.value = 'Something went wrong';
+    errors.value = "Something went wrong";
   }
 };
+
+const toggleLogin = () => {
+  isLoggingIn.value = !isLoggingIn.value;
+};
+
+
 </script>
