@@ -4,7 +4,9 @@
       <!-- Card -->
       <div class="card">
         <div class="flex justify-center">
-          <div class="flex justify-center w-20 h-20 items-center rounded-full border shadow-xl border-white/20">
+          <div
+            class="flex justify-center w-20 h-20 items-center rounded-full border shadow-xl border-white/20"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -22,16 +24,20 @@
           </div>
         </div>
 
-        <button class="btn btn-primary py-3 w-full mt-5">
+        <button
+          @click="handleGithubLogin"
+          class="btn btn-primary py-3 w-full mt-5"
+        >
           Continue with Github!
         </button>
 
         <hr class="border-white/10 my-8" />
 
-        <form>
+        <form @submit.prevent="handleLogin">
           <div class="form-group">
             <label for="email">Email</label>
             <input
+              v-model="form.email"
               type="email"
               name="email"
               id="email"
@@ -40,15 +46,64 @@
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" />
+            <input
+              v-model="form.password"
+              type="password"
+              name="password"
+              id="password"
+            />
           </div>
           <button type="submit" class="btn btn-primary w-full py-3 mt-5">
             Login
           </button>
+
+          <div class="text-center mt-5">
+            <button>
+              Don't have an account?
+              <span class="text-purple-500">Signup</span>.
+            </button>
+          </div>
+
+          <p class="text-red-500 text-center mt-5">{{ errors }}</p>
         </form>
       </div>
       <!-- ./ Card -->
     </div>
   </section>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const form = reactive({
+  email: "",
+  password: "",
+});
+const errors = ref<string>("");
+
+const supabaseAuth = useSupabaseClient();
+
+const handleGithubLogin = () => {
+  supabaseAuth.auth.signInWithOAuth({
+    provider: "github",
+  });
+};
+
+const handleLogin = async () => {
+  if (!form.email || !form.password) {
+    errors.value = "Please fill all the fields";
+    return;
+  }
+
+  try {
+    const { data, error } = await supabaseAuth.auth.signInWithPassword({
+      email: form.email,
+      password: form.password,
+    });
+
+    if (error) {
+      errors.value = error.message;
+      return
+    }
+  } catch (error) {
+    errors.value = 'Something went wrong';
+  }
+};
+</script>
