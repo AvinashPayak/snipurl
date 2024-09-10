@@ -5,14 +5,29 @@
     </section>
     <UrlForm />
     <LinkItem
-      v-for="i in 5"
-      :key="i"
-      :link="{ shortKey: 'sdfgsdfg', longUrl: 'sdgdsg', id: '12' }"
+      v-for="link in data"
+      :key="link.id"
+      :link="{ shortKey: link.key, longUrl: link.long_url || '', id: link.id }"
     />
   </main>
 </template>
 <script lang="ts" setup>
+import type { Database } from "~/database.types";
+
 definePageMeta({
-  middleware: 'auth'
-})
+  middleware: "auth",
+});
+
+const client = useSupabaseClient<Database>()
+const user = useSupabaseUser()
+
+const { data } = useAsyncData("links", async () => {
+  const { data, error } = await client
+    .from("links")
+    .select("*")
+    .eq("user_id", user.value?.id)
+    return data
+});
+
+console.log({data})
 </script>
