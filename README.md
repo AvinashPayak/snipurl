@@ -1,75 +1,37 @@
-# Nuxt 3 Minimal Starter
+# snipURL
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+`snipURL` is a URL shortener application built with **Nuxt 3**, **Supabase**, and **Tailwind CSS**. This project allows users to shorten long URLs and manage their shortened links.
+
+## Live Demo
+The website is hosted on the following link: https://snipurl-eight.vercel.app/
+
+## Features
+
+- URL Shortening
+- Link Management
+- User Authentication with Supabase
+- GitHub Authentication
+- Responsive Design with Tailwind CSS
+
+## Technologies
+
+- Nuxt 3
+- Supabase
+- Tailwind CSS
 
 ## Setup
 
-Make sure to install the dependencies:
+### Prerequisites
 
-```bash
-# npm
-npm install
+- Node.js (v18 or later recommended)
+- npm or yarn
+- Supabase account and project
+- GitHub account (for authentication)
 
-# pnpm
-pnpm install
+### Getting Started
 
-# yarn
-yarn install
+1. **Clone the Repository**
 
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+   ```bash
+   git clone https://github.com/AvinashPayak/snipurl.git
+   cd snipURL
